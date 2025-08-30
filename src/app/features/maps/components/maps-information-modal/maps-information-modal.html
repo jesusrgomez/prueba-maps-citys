@@ -1,0 +1,89 @@
+<div class="modal-container">
+    <div class="modal-header">
+        <span class="modal-title"><strong>{{ data.countryInfo.name.common }}</strong></span>
+        <div class="modal-icons">
+            <button class="icon-btn" title="Cerrar" (click)="onClose()">✖</button>
+        </div>
+    </div>
+
+    <div class="modal-content">
+
+        <div class="col-12">
+            <h5>Información General</h5>
+        </div>
+        <hr>
+        <div class="row">
+
+            <div class="col-6 col-md-6 div-title">
+                <h2 mat-dialog-title>{{ data.displayName }}</h2>
+            </div>
+            <div class="col-6 col-md-6 div-title">
+                <img [src]="data.countryInfo.flags.png" alt="Bandera" width="100" />
+            </div>
+        </div>
+        <div class="row">
+            <p><strong>País:</strong> {{ data.countryInfo.name.common }}</p>
+            <p><strong>Capital:</strong> {{ data.countryInfo.capital?.[0] }}</p>
+            <p><strong>Región:</strong> {{ data.countryInfo.region }}</p>
+            <p><strong>Población:</strong> {{ data.countryInfo.population | number }}</p>
+            <p><strong>Idiomas:</strong> {{ getLanguages(data.countryInfo.languages) }}</p>
+        </div>
+
+        <div class="col-12 col-md-12 mt-2 p-1">
+            <h5>Datos Del Clima </h5>
+        </div>
+        <hr>
+        <div class="row">
+
+            <p><strong>Temperatura:</strong> {{ weatherData.main.temp }} °C</p>
+            <p><strong>Descripción:</strong> {{ weatherData.weather[0].description }}</p>
+            <p><strong>Humedad:</strong> {{ weatherData.main.humidity }}%</p>
+            <p><strong>Viento:</strong> {{ weatherData.wind.speed }} m/s</p>
+            <p><strong>Sensación térmica:</strong> {{ weatherData.main.feels_like }} °C</p>
+
+            <img class="img-clima"
+                [src]="'https://openweathermap.org/img/wn/' + weatherData.weather[0].icon + '@2x.png'"
+                alt="Ícono del clima" />
+        </div>
+        <div class="col-12 col-md-12 mt-2 p-1">
+            <h5>Información del Pais </h5>
+        </div>
+        <hr>
+
+        <div class="row">
+            <p><strong>Población del Pais:</strong> {{ data.countryInfo.population | number }}</p>
+            <p><strong>Moneda Oficial:</strong> {{ data.countryInfo.currencies[0]?.name | currency }}</p>
+            <p><strong>Idiomas Oficiales:</strong> {{ data.countryInfo.languages?.spa ||data.countryInfo.languages?.eng
+                ||data.countryInfo.languages?.amh ||data.countryInfo.languages?.fas ||data.countryInfo.languages?.fra
+                ||data.countryInfo.languages?.zho ||data.countryInfo.languages?.rus }}</p>
+            <p><strong>Capital del Pais:</strong> {{ data.countryInfo.capital[0] }}</p>
+            <p><strong>Región y Subregión:</strong> {{ data?.countryInfo?.region || data?.countryInfo?.subregion }}</p>
+        </div>
+        <div class="col-12 col-md-12 mt-2 p-1">
+            <h5>Datos Curiosos: {{data.cityName}} </h5>
+        </div>
+        <hr>
+        <div class="col-12 col-md-12">
+            <table class="curious-table">
+                <thead>
+                    <tr>
+                        <th>Lista de Datos</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @for (fact of facts; track fact) {
+                    <tr>
+                        <td>{{ fact }}</td>
+                    </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+        <hr>
+    </div>
+
+    <div class="modal-actions">
+        <button class="btn maps" (click)="getMaps()">Ver en Google Maps</button>
+        <button class="btn close" (click)="onClose()">Cerrar</button>
+    </div>
+</div>

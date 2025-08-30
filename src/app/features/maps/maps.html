@@ -1,0 +1,16 @@
+
+<div class="container-maps">
+  <google-map
+    height="600px"
+    width="100%"
+    [center]="center()"
+    [zoom]="zoom()">
+
+    <map-marker 
+      *ngFor="let city of cities"
+      [position]="{ lat: city.lat, lng: city.lng }"
+      (mapClick)="openCityModal(city)">
+    </map-marker>
+
+  </google-map>
+</div>
